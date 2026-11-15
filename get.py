@@ -1,19 +1,9 @@
-from flask import Flask, jsonify, request
 
-app = Flask(name)
+from flask import Blueprint, jsonify
+from data import orders
 
+get_orders_bp = Blueprint("get_orders", __name__)
 
-orders = [
-{
-"id": 1,
-"student_name": "John",
-"items": ["Burger", "Juice"],
-"total_price": 85,
-"status": "Pending"
-}
-]
-
-
-@app.route('/orders', methods=['GET'])
+@get_orders_bp.route("/api/orders", methods=["GET"])
 def get_orders():
-return jsonify({"orders": orders}), 200
+    return jsonify(orders), 200
