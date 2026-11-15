@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Temporary order storage
+
 orders = [
     {
         "id": 1,
@@ -13,12 +13,12 @@ orders = [
     }
 ]
 
-# 1. GET ALL ORDERS
+
 @app.route('/orders', methods=['GET'])
 def get_orders():
     return jsonify({"orders": orders}), 200
 
-# 2. GET ORDER BY ID
+
 @app.route('/orders/<int:order_id>', methods=['GET'])
 def get_order(order_id):
     for order in orders:
@@ -27,7 +27,7 @@ def get_order(order_id):
 
     return jsonify({"error": "Order not found"}), 404
 
-# 3. CREATE NEW ORDER
+
 @app.route('/orders', methods=['POST'])
 def create_order():
     data = request.get_json(silent=True)
@@ -66,7 +66,7 @@ def create_order():
         "order": new_order
     }), 201
 
-# 4. UPDATE ORDER STATUS
+
 @app.route('/orders/<int:order_id>', methods=['PATCH'])
 def update_order(order_id):
     data = request.get_json(silent=True)
@@ -94,7 +94,7 @@ def update_order(order_id):
 
     return jsonify({"error": "Order not found"}), 404
 
-# 5. DELETE ORDER
+
 @app.route('/orders/<int:order_id>', methods=['DELETE'])
 def delete_order(order_id):
     for order in orders:
