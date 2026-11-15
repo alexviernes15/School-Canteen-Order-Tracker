@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 
 app = Flask(name)
 
-Temporary order storage
 
 orders = [
 {
@@ -14,7 +13,6 @@ orders = [
 }
 ]
 
-1. GET ALL ORDERS
 
 @app.route('/orders', methods=['GET'])
 def get_orders():
