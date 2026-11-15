@@ -1,22 +1,21 @@
-From flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
-App = Flask(__name__)
+app = Flask(name)
 
-Orders = [
-    {
-        “id”: 1,
-        “student_name”: “John”,
-        “items”: [“Burger”, “Juice”],
-        “total_price”: 85,
-        “status”: “Pending”
-    }
+Temporary order storage
+
+orders = [
+{
+"id": 1,
+"student_name": "John",
+"items": ["Burger", "Juice"],
+"total_price": 85,
+"status": "Pending"
+}
 ]
 
-@app.route(‘/orders’, methods=[‘GET’])
-Def get_orders():
-    Return jsonify({“orders”: orders}), 200
+1. GET ALL ORDERS
 
-If __name__ == ‘__main__’:
-    App.run(debug=True)
-
-    
+@app.route('/orders', methods=['GET'])
+def get_orders():
+return jsonify({"orders": orders}), 200
