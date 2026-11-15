@@ -1,15 +1,24 @@
-@app.route('/orders/<int:order_id>', methods=['PATCH'])
+
+from flask import Blueprint, jsonify, request
+from data import orders
+
+update_order_bp = Blueprint("update_order", __name__)
+
+@update_order_bp.route("/api/orders/<int:order_id>", methods=["PATCH"])
 def update_order(order_id):
     data = request.get_json(silent=True)
 
     if not isinstance(data, dict):
-        return jsonify({"error": "JSON body required"}), 400
+        return jsonify({"error": "Invalid JSON data"}), 400
 
     if "status" not in data:
         return jsonify({"error": "Status is required"}), 400
 
     allowed_statuses = [
-        "Pending", "Preparing", "Ready", "Completed"
+        "Pending",
+        "Preparing",
+        "Ready",
+        "Completed"
     ]
 
     if data["status"] not in allowed_statuses:
@@ -18,8 +27,9 @@ def update_order(order_id):
     for order in orders:
         if order["id"] == order_id:
             order["status"] = data["status"]
+
             return jsonify({
-                "message": "Order status updated",
+                "message": "Order updated successfully",
                 "order": order
             }), 200
 
